@@ -3,7 +3,7 @@
 set -o errexit
 set -o pipefail
 set -o nounset
-set -o xtrace
+#set -o xtrace
 
 shopt -s dotglob
 
@@ -21,7 +21,7 @@ install() {
 	file=$1
 	echo -e "${GREEN}Installing ${file} to $HOME${NC}"
 	relative=$(realpath --relative-base=$HOME $file)
-	ln --symbolic --interactive --verbose $relative $HOME/$(basename $file) 
+	ln --force --interactive --verbose $relative $HOME/$(basename $file) 
 }
 
 for file in $dir/configuration/*; do
