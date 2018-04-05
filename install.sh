@@ -36,11 +36,3 @@ while IFS= read -r -d $'\0' file; do
 	fi
 done < <(find $dir/configuration/ -type f -not -name "*.swp" -print0)
 
-#for file in $dir/configuration/**; do
-#	if [ -f $file ]; then
-#		install $file
-#	else
-#		cry "${RED}Don't know what to do with${NC} $file"
-#	fi
-#done
-
