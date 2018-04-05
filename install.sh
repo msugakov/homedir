@@ -19,16 +19,28 @@ cry() {
 
 install() {
 	file=$1
-	echo -e "${GREEN}Installing ${file} to $HOME${NC}"
-	relative=$(realpath --relative-base=$HOME $file)
-	ln --force --interactive --verbose $relative $HOME/$(basename $file) 
+	homepath=$(realpath --relative-to=$dir/configuration $file)
+	echo -e "${GREEN}Installing ${file} to $HOME/$homepath${NC}"
+	home_subdir=$(dirname $homepath)
+	if [ "." != "$home_subdir" ]; then
+		mkdir --parents --verbose $HOME/$home_subdir
+	fi
+	(cd $HOME; ln --symbolic --force --verbose $file $HOME/$homepath)
 }
 
-for file in $dir/configuration/*; do
+while IFS= read -r -d $'\0' file; do
 	if [ -f $file ]; then
 		install $file
 	else
 		cry "${RED}Don't know what to do with${NC} $file"
 	fi
-done
+done < <(find $dir/configuration/ -type f -not -name "*.swp" -print0)
+
+#for file in $dir/configuration/**; do
+#	if [ -f $file ]; then
+#		install $file
+#	else
+#		cry "${RED}Don't know what to do with${NC} $file"
+#	fi
+#done
 
