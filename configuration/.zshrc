@@ -93,6 +93,9 @@ export WINEARCH=win32
 # export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export JAVA_HOME=$(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')
 
+export ANDROID_HOME="/opt/android-sdk"
+export PATH="${PATH}:${ANDROID_HOME}/tools/:${ANDROID_HOME}/platform-tools/"
+
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
 
