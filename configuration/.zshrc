@@ -93,9 +93,6 @@ export WINEARCH=win32
 # export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export JAVA_HOME=$(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')
 
-export ANDROID_HOME="/opt/android-sdk"
-export PATH="${PATH}:${ANDROID_HOME}/tools/:${ANDROID_HOME}/platform-tools/"
-
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
 
@@ -106,6 +103,7 @@ export NVM_DIR="$HOME/.nvm"
 alias gs="git status"
 alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
+[ -s "$HOME/.extra-zshrc" ] && \. "$HOME/.extra-zshrc"  # Load extra stuff, e.g. for Docker
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
