@@ -106,14 +106,18 @@ alias gd="git diff"
 alias gds="git diff --staged"
 
 export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if which pyenv > /dev/null ; then
+	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
+fi
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
 # Pipenv stuff
 export PIPENV_VENV_IN_PROJECT=1
-eval "$(pipenv --completion)"
+if which pipenv > /dev/null ; then
+	eval "$(pipenv --completion)"
+fi
 
 [ -s "$HOME/.extra-zshrc" ] && \. "$HOME/.extra-zshrc"  # Load extra stuff, e.g. for Docker
 
