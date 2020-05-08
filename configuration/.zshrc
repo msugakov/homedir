@@ -105,6 +105,12 @@ alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold bl
 alias gd="git diff"
 alias gds="git diff --staged"
 
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
 # Pipenv stuff
 export PIPENV_VENV_IN_PROJECT=1
 eval "$(pipenv --completion)"
@@ -114,3 +120,4 @@ eval "$(pipenv --completion)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
