@@ -55,6 +55,11 @@ plugins=(git ssh-agent)
 
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$HOME/devtools/platform-tools:$PATH"
+
+# TODO: is this needed at all?
+## Flatpak paths
+#export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -89,6 +94,8 @@ export ALTERNATE_EDITOR=""
 #alias emax="$EDITOR"
 export EDITOR="nano"
 
+export LESS="--RAW-CONTROL-CHARS --quit-if-one-screen"
+
 export WINEARCH=win32
 # export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export JAVA_HOME=$(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')
@@ -104,6 +111,8 @@ alias gs="git status"
 alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 alias gd="git diff"
 alias gds="git diff --staged"
+
+alias gw="./gradlew"
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 if which pyenv > /dev/null ; then
