@@ -1,0 +1,7 @@
+[alias]
+	pushup = push --set-upstream origin
+	please = push --force-with-lease
+	lg = log --graph --pretty=format:'%Cred%h%Creset - %Cblue<%an>%Creset %C(yellow)%d%Creset %s %Cgreen(%cd)' --abbrev-commit --date=human
+	go = rebase --continue
+	amen = commit --amend
+	co = checkout

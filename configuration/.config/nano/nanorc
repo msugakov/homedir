@@ -1,0 +1,10 @@
+set autoindent
+unset breaklonglines
+set constantshow
+set cutfromcursor
+set guidestripe 70
+set linenumbers
+set positionlog
+set smarthome
+set softwrap
+set tabsize 4
