@@ -1,3 +1,6 @@
+[core]
+	pager = less --quit-if-one-screen --RAW-CONTROL-CHARS --no-init
+
 [alias]
 	pushup = push --set-upstream origin
 	please = push --force-with-lease
@@ -5,3 +8,4 @@
 	go = rebase --continue
 	amen = commit --amend
 	co = checkout
+	last = diff HEAD~ HEAD
