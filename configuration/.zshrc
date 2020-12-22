@@ -113,6 +113,7 @@ alias gd="git diff"
 alias gds="git diff --staged"
 
 alias gw="./gradlew"
+alias fake="dotnet fake run build.fsx target"
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 if which pyenv > /dev/null ; then
