@@ -55,6 +55,7 @@ plugins=(git ssh-agent)
 
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$HOME/devtools/platform-tools:$PATH"
+export PATH="$PATH:/usr/local/go/bin"
 
 # TODO: is this needed at all?
 ## Flatpak paths
