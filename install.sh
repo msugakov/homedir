@@ -35,4 +35,3 @@ while IFS= read -r -d $'\0' file; do
 		cry "${RED}Don't know what to do with${NC} $file"
 	fi
 done < <(find $dir/configuration/ -type f -not -name "*.swp" -print0)
-
