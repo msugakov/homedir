@@ -121,6 +121,13 @@ alias gds="git diff --staged"
 alias gw="./gradlew"
 alias fake="dotnet fake run build.fsx target"
 
+# Does not work with kubectl installed from snap. Don't use snap.
+if command -v kubectl &> /dev/null ; then
+	alias k=kubectl
+	complete -F __start_kubectl k
+	source <(kubectl completion zsh)
+fi
+
 export PATH="$HOME/.pyenv/bin:$PATH"
 if which pyenv > /dev/null ; then
 	eval "$(pyenv init -)"
