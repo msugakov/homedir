@@ -9,3 +9,4 @@
 	amen = commit --amend
 	co = checkout
 	last = diff HEAD~ HEAD
+	redo = rebase --edit-todo
