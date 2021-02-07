@@ -100,6 +100,8 @@ export LESS="--RAW-CONTROL-CHARS --quit-if-one-screen"
 export WINEARCH=win32
 # export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export JAVA_HOME=$(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')
+# Don't phone Microsoft about .net
+export DOTNET_CLI_TELEMETRY_OPTOUT="1"
 
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
