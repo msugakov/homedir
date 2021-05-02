@@ -130,6 +130,10 @@ if command -v kubectl &> /dev/null ; then
 	source <(kubectl completion zsh)
 fi
 
+if command -v oc &> /dev/null ; then
+	source <(oc completion zsh)
+fi
+
 export PATH="$HOME/.pyenv/bin:$PATH"
 if which pyenv > /dev/null ; then
 	eval "$(pyenv init -)"
