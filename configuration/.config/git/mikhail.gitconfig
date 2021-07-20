@@ -10,3 +10,4 @@
 	co = checkout
 	last = diff HEAD~ HEAD
 	redo = rebase --edit-todo
+	cofi = commit --fixup

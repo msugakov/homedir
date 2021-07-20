@@ -133,6 +133,12 @@ fi
 if command -v oc &> /dev/null ; then
 	source <(oc completion zsh)
 fi
+if command -v helm &> /dev/null ; then
+	source <(helm completion zsh)
+fi
+if command -v operator-sdk &> /dev/null ; then
+	source <(operator-sdk completion zsh)
+fi
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 if which pyenv > /dev/null ; then
