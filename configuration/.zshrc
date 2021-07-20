@@ -123,6 +123,8 @@ alias gds="git diff --staged"
 alias gw="./gradlew"
 alias fake="dotnet fake run build.fsx target"
 
+alias exa="~/.local/bin/exa -l@ --git"
+
 # Does not work with kubectl installed from snap. Don't use snap.
 if command -v kubectl &> /dev/null ; then
 	alias k=kubectl
