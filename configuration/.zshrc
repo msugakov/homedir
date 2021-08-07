@@ -150,12 +150,6 @@ fi
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-# Pipenv stuff
-export PIPENV_VENV_IN_PROJECT=1
-if which pipenv > /dev/null ; then
-	eval "$(pipenv --completion)"
-fi
-
 [ -s "$HOME/.extra-zshrc" ] && \. "$HOME/.extra-zshrc"  # Load extra stuff, e.g. for Docker
 
 # Rust stuff
