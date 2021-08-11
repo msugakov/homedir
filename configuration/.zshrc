@@ -142,13 +142,13 @@ if command -v operator-sdk &> /dev/null ; then
 	source <(operator-sdk completion zsh)
 fi
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-if which pyenv > /dev/null ; then
-	eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv &> /dev/null ; then
+	eval "$(pyenv init --path)"
+	#eval "$(pyenv init -)"
 	eval "$(pyenv virtualenv-init -)"
 fi
-
-export PATH="$HOME/.poetry/bin:$PATH"
 
 [ -s "$HOME/.extra-zshrc" ] && \. "$HOME/.extra-zshrc"  # Load extra stuff, e.g. for Docker
 
