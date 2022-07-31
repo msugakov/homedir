@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Install via Desktop panel | Command
+# Install via Desktop panel | Command so that it runs periodically and you see output in tray.
 
 import subprocess
 import logging
@@ -46,6 +46,12 @@ def assign_nv_value(query):
     logging.debug(result.stdout)
 
 
+def ensure_nv_value(query, value):
+    current = get_nv_value(query)
+    if current != value:
+        assign_nv_value(f"{query}={value}")
+
+
 mode_file = Path("~/.cache/nv-quiet-fan/mode.txt").expanduser()
 mode_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -67,37 +73,22 @@ logging.debug(f"Read mode: {mode}")
 temperature = get_nv_value("[thermalsensor:0]/ThermalSensorReading")
 
 if temperature > HOT_TEMP:
+    # TODO: consider setting GPUFanControlState to 0 for automatic control by GPU and driver in this case
     mode = CoolingMode.FAST_FAN
 elif temperature > WARM_TEMP:
     mode = CoolingMode.QUIET_FAN
 elif temperature < OFF_TEMP:
     mode = CoolingMode.SILENT
 
-fan0_speed = get_nv_value("[fan:0]/GPUTargetFanSpeed")
-fan1_speed = get_nv_value("[fan:1]/GPUTargetFanSpeed")
+logging.info(f"Temperature is: {temperature}°C. Desired target: {mode}={mode.value}%")
 
-logging.info(
-    f"Temperature is: {temperature} C. "
-    + f"Current targets: fan0={fan0_speed}%, fan1={fan1_speed}%. "
-    + f"Desired target: {mode}={mode.value}%"
-)
-
-fan_control_enabled = get_nv_value("[gpu:0]/GPUFanControlState")
-if fan_control_enabled == 0:
-    assign_nv_value("[gpu:0]/GPUFanControlState=1")
-
-if fan0_speed != mode.value:
-    assign_nv_value(f"[fan:0]/GPUTargetFanSpeed={mode.value}")
-    subprocess.run(
-        ["nvidia-settings", "--assign", f"[fan:0]/GPUTargetFanSpeed={mode.value}"],
-        check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
-
-if fan1_speed != mode.value:
-    assign_nv_value(f"[fan:1]/GPUTargetFanSpeed={mode.value}")
+ensure_nv_value("[gpu:0]/GPUFanControlState", 1)
+ensure_nv_value("[fan:0]/GPUTargetFanSpeed", mode.value)
+ensure_nv_value("[fan:1]/GPUTargetFanSpeed", mode.value)
 
 write_mode(mode)
 
-print(f"🌡️{temperature}°C 💨{mode.value}%")
+fan0_speed = get_nv_value("[fan:0]/GPUCurrentFanSpeed")
+fan1_speed = get_nv_value("[fan:1]/GPUCurrentFanSpeed")
+
+print(f"🌡️{temperature}°C 💨{fan0_speed}+{fan1_speed}%")
