@@ -93,4 +93,4 @@ write_mode(mode)
 fan0_speed = get_nv_value("[fan:0]/GPUCurrentFanSpeed")
 fan1_speed = get_nv_value("[fan:1]/GPUCurrentFanSpeed")
 
-print(f"🌡️{temperature}°C 💨{fan0_speed}+{fan1_speed}%")
+print(f"🌡️{temperature}°C 💨{(fan0_speed+fan1_speed)/2}%")
