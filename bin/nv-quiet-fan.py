@@ -2,6 +2,8 @@
 
 # Install via Desktop panel | Command so that it runs periodically and you see output in tray.
 
+# A useful resource https://forums.developer.nvidia.com/t/how-to-set-fanspeed-in-linux-from-terminal/72705
+
 import subprocess
 import logging
 import sys
