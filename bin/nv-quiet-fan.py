@@ -35,6 +35,17 @@ def get_nv_value(query):
     return int(query_process.stdout)
 
 
+def assign_nv_value(query):
+    result = subprocess.run(
+        ["nvidia-settings", "--assign", query],
+        check=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        encoding="utf-8",
+    )
+    logging.debug(result.stdout)
+
+
 mode_file = Path("~/.cache/nv-quiet-fan/mode.txt").expanduser()
 mode_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -68,10 +79,15 @@ fan1_speed = get_nv_value("[fan:1]/GPUTargetFanSpeed")
 logging.info(
     f"Temperature is: {temperature} C. "
     + f"Current targets: fan0={fan0_speed}%, fan1={fan1_speed}%. "
-    + f"Will set fans to {mode} ({mode.value}%)..."
+    + f"Desired target: {mode}={mode.value}%"
 )
 
+fan_control_enabled = get_nv_value("[gpu:0]/GPUFanControlState")
+if fan_control_enabled == 0:
+    assign_nv_value("[gpu:0]/GPUFanControlState=1")
+
 if fan0_speed != mode.value:
+    assign_nv_value(f"[fan:0]/GPUTargetFanSpeed={mode.value}")
     subprocess.run(
         ["nvidia-settings", "--assign", f"[fan:0]/GPUTargetFanSpeed={mode.value}"],
         check=True,
@@ -80,12 +96,7 @@ if fan0_speed != mode.value:
     )
 
 if fan1_speed != mode.value:
-    subprocess.run(
-        ["nvidia-settings", "--assign", f"[fan:1]/GPUTargetFanSpeed={mode.value}"],
-        check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
+    assign_nv_value(f"[fan:1]/GPUTargetFanSpeed={mode.value}")
 
 write_mode(mode)
 
