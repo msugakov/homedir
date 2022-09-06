@@ -127,6 +127,8 @@ alias fake="dotnet fake run build.fsx target"
 
 alias exa="~/.local/bin/exa -l@ --git"
 
+alias drun="docker run --rm -it --entrypoint=/bin/bash"
+
 # Does not work with kubectl installed from snap. Don't use snap.
 if command -v kubectl &> /dev/null ; then
 	alias k=kubectl
