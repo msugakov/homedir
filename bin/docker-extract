@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+image="$1"
+
+docker pull "$image"
+
+container="$(docker create "$image")"
+
+set +e
+docker export "$container" | tar xf -
+set -e
+
+docker rm "$container"
