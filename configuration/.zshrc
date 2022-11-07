@@ -129,6 +129,8 @@ alias exa="~/.local/bin/exa -l@ --git"
 
 alias drun="docker run --rm -it --entrypoint=/bin/bash"
 
+alias cdproj="cd ~/projects/"
+
 # Does not work with kubectl installed from snap. Don't use snap.
 if command -v kubectl &> /dev/null ; then
 	alias k=kubectl
@@ -144,6 +146,9 @@ if command -v helm &> /dev/null ; then
 fi
 if command -v operator-sdk &> /dev/null ; then
 	source <(operator-sdk completion zsh)
+fi
+if command -v tkn &> /dev/null ; then
+	source <(tkn completion zsh)
 fi
 
 export PYENV_ROOT="$HOME/.pyenv"
