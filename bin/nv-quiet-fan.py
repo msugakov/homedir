@@ -16,13 +16,13 @@ logging.basicConfig(
 
 OFF_TEMP = 50
 WARM_TEMP = 60
-HOT_TEMP = 75
+HOT_TEMP = 70
 
 
 class CoolingMode(Enum):
     SILENT = 0
     QUIET_FAN = 30
-    FAST_FAN = 90
+    AUTO_FAN = 100
 
 
 def get_nv_value(query):
@@ -75,8 +75,7 @@ logging.debug(f"Read mode: {mode}")
 temperature = get_nv_value("[thermalsensor:0]/ThermalSensorReading")
 
 if temperature > HOT_TEMP:
-    # TODO: consider setting GPUFanControlState to 0 for automatic control by GPU and driver in this case
-    mode = CoolingMode.FAST_FAN
+    mode = CoolingMode.AUTO_FAN
 elif temperature > WARM_TEMP:
     mode = CoolingMode.QUIET_FAN
 elif temperature < OFF_TEMP:
@@ -84,9 +83,12 @@ elif temperature < OFF_TEMP:
 
 logging.info(f"Temperature is: {temperature}°C. Desired target: {mode}={mode.value}%")
 
-ensure_nv_value("[gpu:0]/GPUFanControlState", 1)
-ensure_nv_value("[fan:0]/GPUTargetFanSpeed", mode.value)
-ensure_nv_value("[fan:1]/GPUTargetFanSpeed", mode.value)
+if mode == CoolingMode.AUTO_FAN:
+    ensure_nv_value("[gpu:0]/GPUFanControlState", 0)
+else:
+    ensure_nv_value("[gpu:0]/GPUFanControlState", 1)
+    ensure_nv_value("[fan:0]/GPUTargetFanSpeed", mode.value)
+    ensure_nv_value("[fan:1]/GPUTargetFanSpeed", mode.value)
 
 write_mode(mode)
 
