@@ -125,6 +125,8 @@ alias gpa="git pull --all --ff-only"
 alias gw="./gradlew"
 alias fake="dotnet fake run build.fsx target"
 
+alias rake="bundle exec rake"
+
 alias exa="~/.local/bin/exa -l@ --git"
 
 alias drun="docker run --rm -it --entrypoint=/bin/bash"
