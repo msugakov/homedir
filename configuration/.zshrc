@@ -161,8 +161,6 @@ if command -v pyenv &> /dev/null ; then
 	#eval "$(pyenv virtualenv-init -)"
 fi
 
-export PATH="$HOME/.poetry/bin:$PATH"
-
 [ -s "$HOME/.extra-zshrc" ] && \. "$HOME/.extra-zshrc"  # Load extra stuff, e.g. for Docker
 
 # Rust stuff
