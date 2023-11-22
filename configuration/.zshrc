@@ -133,6 +133,8 @@ alias drun="docker run --rm -it --entrypoint=/bin/bash"
 
 alias cdproj="cd ~/projects/"
 
+alias hx="helix"
+
 # Does not work with kubectl installed from snap. Don't use snap.
 if command -v kubectl &> /dev/null ; then
 	alias k=kubectl
