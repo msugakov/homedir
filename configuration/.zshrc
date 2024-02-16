@@ -130,6 +130,7 @@ alias rake="bundle exec rake"
 alias exa="~/.local/bin/exa -l@ --git"
 
 alias drun="docker run --rm -it --entrypoint=/bin/bash"
+alias prun="podman run --rm -it --entrypoint=/bin/bash"
 
 alias cdproj="cd ~/projects/"
 
