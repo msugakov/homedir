@@ -170,8 +170,10 @@ fi
 [ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # Ruby
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(~/.rbenv/bin/rbenv init - zsh)"
+if [[ -d "$HOME/.rbenv/bin" ]]; then
+	export PATH="$HOME/.rbenv/bin:$PATH"
+	eval "$(~/.rbenv/bin/rbenv init - zsh)"
+fi
 
 # .net tools
 export PATH="$HOME/.dotnet/tools:$PATH"
