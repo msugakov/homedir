@@ -123,18 +123,18 @@ alias gds="git diff --staged"
 alias gpa="git pull --all --ff-only"
 
 alias gw="./gradlew"
-alias fake="dotnet fake run build.fsx target"
+#alias fake="dotnet fake run build.fsx target"
 
-alias rake="bundle exec rake"
+#alias rake="bundle exec rake"
 
-alias exa="~/.local/bin/exa -l@ --git"
+#alias exa="~/.local/bin/exa -l@ --git"
 
 alias drun="docker run --rm -it --entrypoint=/bin/bash"
 alias prun="podman run --rm -it --entrypoint=/bin/bash"
 
 alias cdproj="cd ~/projects/"
 
-alias hx="helix"
+#alias hx="helix"
 
 # Does not work with kubectl installed from snap. Don't use snap.
 if command -v kubectl &> /dev/null ; then
