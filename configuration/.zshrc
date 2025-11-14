@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -64,7 +64,7 @@ export PATH="$PATH:$HOME/projects/homedir/bin"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -108,13 +108,13 @@ bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Thingy for GPG signing of git commits.
 # Be also sure to install pinentry-curses and do
 # sudo update-alternatives --config pinentry
-export GPG_TTY=$(tty)
+export GPG_TTY="$(tty)"
 
 alias gs="git status"
 alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
@@ -123,11 +123,6 @@ alias gds="git diff --staged"
 alias gpa="git pull --all --ff-only"
 
 alias gw="./gradlew"
-#alias fake="dotnet fake run build.fsx target"
-
-#alias rake="bundle exec rake"
-
-#alias exa="~/.local/bin/exa -l@ --git"
 
 alias drun="docker run --rm -it --entrypoint=/bin/bash"
 alias prun="podman run --rm -it --entrypoint=/bin/bash"
@@ -156,18 +151,10 @@ if command -v tkn &> /dev/null ; then
 	source <(tkn completion zsh)
 fi
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv &> /dev/null ; then
-	#eval "$(pyenv init --path)"
-	eval "$(pyenv init -)"
-	#eval "$(pyenv virtualenv-init -)"
-fi
-
-[ -s "$HOME/.extra-zshrc" ] && \. "$HOME/.extra-zshrc"  # Load extra stuff, e.g. for Docker
+[[ -s "$HOME/.extra-zshrc" ]] && \. "$HOME/.extra-zshrc"  # Load extra stuff, e.g. for Docker
 
 # Rust stuff
-[ -s "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+[[ -s "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # Ruby
 if [[ -d "$HOME/.rbenv/bin" ]]; then
@@ -183,5 +170,3 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export COLUMNS="120"
-
-[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
