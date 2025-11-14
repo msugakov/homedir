@@ -2,10 +2,11 @@
 	pager = less --quit-if-one-screen --RAW-CONTROL-CHARS --no-init
 
 [alias]
-	pushup = push --set-upstream origin
+	pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
 	please = push --force-with-lease
 	lg = log --graph --pretty=format:'%Cred%h%Creset - %Cblue<%an>%Creset %C(yellow)%d%Creset %s %Cgreen(%cd)' --abbrev-commit --date=human
 	go = rebase --continue
+	cherry-pig = cherry-pick --continue
 	amen = commit --amend
 	co = checkout
 	last = diff HEAD~ HEAD
