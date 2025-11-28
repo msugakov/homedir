@@ -130,6 +130,8 @@ alias prun="podman run --rm -it --entrypoint=/bin/bash"
 
 alias cdproj="cd ~/projects/"
 
+alias lsbin="ls ~/.local/bin/"
+
 #alias hx="helix"
 
 # Does not work with kubectl installed from snap. Don't use snap.
