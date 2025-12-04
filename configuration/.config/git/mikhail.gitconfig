@@ -9,7 +9,7 @@
 	cherry-pig = cherry-pick --continue
 	amen = commit --amend
 	co = checkout
-	last = diff HEAD~ HEAD
 	redo = rebase --edit-todo
 	cofi = commit --fixup
 	ico = commit -m
+	adu = add -u

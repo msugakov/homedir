@@ -125,7 +125,6 @@ alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold bl
 alias gd="git diff"
 alias gds="git diff --staged"
 alias gpa="git pull --all --ff-only"
-alias gadu="git add -u; git status"
 
 alias gw="./gradlew"
 
