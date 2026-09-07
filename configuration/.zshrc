@@ -1,5 +1,7 @@
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+	export ZSH="$HOME/.oh-my-zsh"
+fi
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -55,6 +57,10 @@ else
 	plugins=(git gpg-agent fzf)
 fi
 
+if [[ -d "$ZSH/oh-my-zsh.sh" ]]; then
+	source "$ZSH/oh-my-zsh.sh"
+fi
+
 # User configuration
 
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
@@ -62,13 +68,31 @@ export PATH="$HOME/devtools/platform-tools:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/projects/homedir/bin"
 
-# TODO: is this needed at all?
-## Flatpak paths
-#export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
+autoload -Uz add-zsh-hook
 
-# export MANPATH="/usr/local/man:$MANPATH"
+if [[ -f "$HOME/.local/bin/git-prompt.sh" ]]; then
+	source "$HOME/.local/bin/git-prompt.sh"
 
-source "$ZSH/oh-my-zsh.sh"
+	GIT_PS1_SHOWDIRTYSTATE=1
+	GIT_PS1_SHOWSTASHSTATE=1
+	GIT_PS1_SHOWUNTRACKEDFILES=1
+	GIT_PS1_SHOWUPSTREAM=verbose
+	GIT_PS1_SHOWCOLORHINTS=1
+
+	git_prompt_precmd() {
+		__git_ps1 "%~" " %# " " (%s)"
+	}
+
+	add-zsh-hook precmd git_prompt_precmd
+fi
+
+if type fzf > /dev/null; then
+	source <(fzf --zsh)
+fi
+
+if [[ "$(hostname)" != *-vm ]]; then
+	eval "$(keychain --eval --quiet id_ed25519)"
+fi
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -120,6 +144,7 @@ export NVM_DIR="$HOME/.nvm"
 # sudo update-alternatives --config pinentry
 export GPG_TTY="$(tty)"
 
+alias g="git"
 alias gs="git status"
 alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 alias gd="git diff"
@@ -137,11 +162,12 @@ alias lsbin="ls ~/.local/bin/"
 
 #alias hx="helix"
 
-# Does not work with kubectl installed from snap. Don't use snap.
+autoload -Uz compinit
+compinit
 if command -v kubectl &> /dev/null ; then
 	alias k=kubectl
-	complete -F __start_kubectl k
 	source <(kubectl completion zsh)
+	compdef k=kubectl
 fi
 
 if command -v oc &> /dev/null ; then
