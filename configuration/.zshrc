@@ -15,7 +15,7 @@ export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/projects/homedir/bin"
 
 HOST_COLOR=$(( ( $(print -rn -- "$HOST" | cksum | cut -d' ' -f1) + 4) % 6 + 1 ))
-MY_PRE_PROMPT="%F{$HOST_COLOR}%m%f %~"
+MY_PRE_PROMPT="%n@%F{$HOST_COLOR}%m%f %~"
 
 autoload -Uz add-zsh-hook
 
@@ -36,6 +36,17 @@ if [[ -f "$HOME/.local/bin/git-prompt.sh" ]]; then
 else
 	PROMPT="$MY_PRE_PROMPT %# "
 fi
+
+set_terminal_title_precmd() {
+    print -Pn "\e]0;[%n@%m] %~\a"
+}
+
+set_terminal_title_preexec() {
+    print -Pn "\e]0;[%n@%m] $1\a"
+}
+
+add-zsh-hook precmd set_terminal_title_precmd
+add-zsh-hook preexec set_terminal_title_preexec
 
 if type fzf > /dev/null; then
 	source <(fzf --zsh)
