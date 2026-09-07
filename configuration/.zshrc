@@ -19,6 +19,16 @@ MY_PRE_PROMPT="%n@%F{$HOST_COLOR}%m%f %~"
 
 autoload -Uz add-zsh-hook
 
+exit_status_precmd() {
+	local ec="$?"
+	if (( ec )); then
+		MY_EXIT_CODE="%F{red}[${ec}]%f "
+	else
+		MY_EXIT_CODE=""
+    fi
+}
+add-zsh-hook precmd exit_status_precmd
+
 if [[ -f "$HOME/.local/bin/git-prompt.sh" ]]; then
 	source "$HOME/.local/bin/git-prompt.sh"
 
@@ -29,12 +39,13 @@ if [[ -f "$HOME/.local/bin/git-prompt.sh" ]]; then
 	GIT_PS1_SHOWCOLORHINTS=1
 
 	git_prompt_precmd() {
-		__git_ps1 "$MY_PRE_PROMPT" " %# " " (%s)"
+		__git_ps1 "${MY_EXIT_CODE}${MY_PRE_PROMPT}" $'\n$ ' " (%s)"
 	}
 
 	add-zsh-hook precmd git_prompt_precmd
 else
-	PROMPT="$MY_PRE_PROMPT %# "
+	setopt PROMPT_SUBST
+	PROMPT='${MY_EXIT_CODE}'"${MY_PRE_PROMPT}"$'\n''\$ '
 fi
 
 set_terminal_title_precmd() {
